@@ -1,0 +1,10 @@
+version: "3"
+services:
+  mqtt:
+    build:
+      context: "."
+      dockerfile: dockerfile
+    volumes:
+      - "/codebase:/codebase"
+      - "/storage:/storage"
+    restart: always
