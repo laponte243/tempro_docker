@@ -1,22 +1,21 @@
-FROM python:3.8-slim AS bot
+FROM python:3.12-slim-bullseye AS base
 
-ENV PYTHONFAULTHANDLER=1
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONHASHSEED=random
 ENV PYTHONDONTWRITEBYTECODE 1
-ENV PIP_NO_CACHE_DIR=off
-ENV PIP_DISABLE_PIP_VERSION_CHECK=on
-ENV PIP_DEFAULT_TIMEOUT=100
+ENV PYTHONUNBUFFERED 1
 
+RUN pip install --upgrade pip
 
-RUN apt-get update
-RUN apt-get install -y python3 python3-pip python-dev build-essential python3-venv
+RUN mkdir /app
 
-RUN mkdir -p /codebase /storage
-ADD . /codebase
-WORKDIR /codebase
+WORKDIR /app
+COPY . /app
 
-RUN pip3 install -r requirements.txt
-RUN chmod +x /codebase/msg-mqtt.py
+RUN python3 -m venv /opt/venv
 
-CMD python3 /codebase/msg-mqtt.py;
+RUN /opt/venv/bin/pip install pip --upgrade
+
+RUN /opt/venv/bin/pip install -r /app/requirements.txt
+
+RUN chmod +x /app/msg-mqtt.py
+
+CMD ["/opt/venv/bin/python", "/app/msg-mqtt.py"]
