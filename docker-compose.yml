@@ -2,7 +2,15 @@ version: "3"
 services:
   mqtt:
     build:
-      context: "."
+      context: "./mqtt/"
+      dockerfile: dockerfile
+    volumes:
+      - "/codebase:/codebase"
+      - "/storage:/storage"
+    restart: always
+  telebot:
+    build:
+      context: "./telebot/"
       dockerfile: dockerfile
     volumes:
       - "/codebase:/codebase"
