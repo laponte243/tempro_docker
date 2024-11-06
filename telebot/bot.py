@@ -150,4 +150,5 @@ def alertas(msg):
         print(e, datetime.now())
         bot.send_message(chat_id, 'Ha habido un error')
 
+print("bot starting :)")
 bot.polling()

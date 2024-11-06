@@ -16,6 +16,6 @@ RUN /opt/venv/bin/pip install pip --upgrade
 
 RUN /opt/venv/bin/pip install -r /app/requirements.txt
 
-RUN chmod +x /app/msg-mqtt.py
+RUN chmod +x /app/bot.py
 
-CMD ["/opt/venv/bin/python", "/app/msg-mqtt.py"]
+CMD ["/opt/venv/bin/python", "/app/bot.py"]
